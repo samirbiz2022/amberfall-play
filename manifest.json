@@ -1,0 +1,19 @@
+{
+  "name": "Amberfall — ממלכת הענבר",
+  "short_name": "Amberfall",
+  "description": "משחק בנייה ותקיפה בממלכת חרקים",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "start_url": "./",
+  "scope": "./",
+  "background_color": "#2e5238",
+  "theme_color": "#74b081",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
