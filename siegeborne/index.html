@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#102432">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Siegeborne">
+  <title>Siegeborne</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    html,body,#game{margin:0;width:100%;height:100%;overflow:hidden;background:#102432;touch-action:none}
+    body{position:fixed;inset:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);box-sizing:border-box}
+    #canvas{display:block;width:100%;height:100%;background:#102432}
+    #loading{position:fixed;inset:0;display:grid;place-content:center;gap:16px;color:#e8f7ff;background:radial-gradient(circle at 50% 42%,#20495b,#0b1822 72%);font:600 16px system-ui;text-align:center;z-index:5}
+    #bar{width:min(62vw,360px);height:8px;border-radius:8px;background:#071117;overflow:hidden;border:1px solid #356474}
+    #fill{height:100%;width:0;background:linear-gradient(90deg,#2ac9e8,#d6ad55)}
+    #warning{position:fixed;top:env(safe-area-inset-top);left:8%;right:8%;z-index:10;color:#fff;text-align:center}
+  </style>
+</head>
+<body>
+  <div id="game"><canvas id="canvas" tabindex="-1"></canvas></div>
+  <div id="loading"><strong>SIEGEBORNE</strong><div id="bar"><div id="fill"></div></div><span>Loading the frontier</span></div>
+  <div id="warning"></div>
+  <script>
+    const canvas=document.querySelector('#canvas'),loading=document.querySelector('#loading'),fill=document.querySelector('#fill');
+    function banner(message,type){const line=document.createElement('div');line.textContent=message;line.style.cssText='margin:8px;padding:10px;background:'+(type==='error'?'#8f2020':'#80651a');document.querySelector('#warning').appendChild(line);if(type!=='error')setTimeout(()=>line.remove(),5000)}
+    const config={arguments:[],dataUrl:'Build/webgl.data',frameworkUrl:'Build/webgl.framework.js',codeUrl:'Build/webgl.wasm',streamingAssetsUrl:'StreamingAssets',companyName:'Siegeborne Studio',productName:'Siegeborne',productVersion:'0.2.0',showBanner:banner,devicePixelRatio:Math.min(window.devicePixelRatio||1,2)};
+    const loader=document.createElement('script');loader.src='Build/webgl.loader.js';loader.onload=()=>createUnityInstance(canvas,config,p=>fill.style.width=(p*100)+'%').then(()=>loading.remove()).catch(e=>banner(String(e),'error'));document.body.appendChild(loader);
+    if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js'));
+  </script>
+</body>
+</html>

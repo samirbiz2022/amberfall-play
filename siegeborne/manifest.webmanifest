@@ -1,0 +1,11 @@
+{
+  "name": "Siegeborne",
+  "short_name": "Siegeborne",
+  "description": "Siegeborne mobile strategy game preview",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#102432",
+  "theme_color": "#102432"
+}
